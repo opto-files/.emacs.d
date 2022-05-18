@@ -195,18 +195,4 @@ We want to save our history to persist over restarts, no?
 #+end_src
 * To-Do List
 
-** DONE EXWM configuration
-
-Should be able to find the same pages I did last time. Remember `, not '. 
-
-** DONE Get Vertico going
-** DONE Get PDF-Tools going
-
-Redownload Symbolic Comp and Pr Alg in Lisp as well
-
-** DONE Get nov.el going 
-
-Might have to install unzip again
-** DONE Move backups and autosaves to a folder
-** DONE Backup init.org to github
 
