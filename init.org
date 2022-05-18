@@ -1,0 +1,212 @@
+#+PROPERTY: header-args :tangle init.el
+
+* opto's Emacs Config
+
+** Use-Package
+
+Use-Package lets us declare packages in our /init/ file and have them installed and configured automatically.
+
+First things first, let's do some set-up. We are going to want to tell Use-Package where to get packages. We are going to use Elpa and Melpa, duh.
+
+#+begin_src emacs-lisp
+(require 'package)
+(add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+#+end_src
+
+Next, we are going to tell Use-Package to install itself it's not already installed.
+
+#+begin_src emacs-lisp
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-and-compile
+  (setq use-package-always-ensure t
+        use-package-expand-minimally t))
+#+end_src
+
+Yay, now we can start calling other packages using Use-Package!
+
+** Emacs Tweaks
+
+Here we're going to set out some of the things we want to change about the base of Emacs itself.
+
+#+begin_src emacs-lisp :noweb yes
+(use-package emacs
+  :init
+    (require 'use-package)
+    (setq ring-bell-function 'ignore)
+    (setq inhibit-startup-message t)
+    (setq initial-scratch-message nil))
+    (menu-bar-mode -1)
+    (scroll-bar-mode -1)
+    (tool-bar-mode -1)
+    (global-visual-line-mode 1)
+    <<move-saves>>
+#+end_src
+
+*** Moving Backups and Autosaves to a folder
+
+#+name: move-saves
+#+begin_src emacs-lisp :tangle no
+(setq backup-by-copying t      ; don't clobber symlinks
+      backup-directory-alist '(("." . "~/.emacs.d/.saves/"))    ; don't litter my fs tree
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)       ; use versioned backups
+(setq auto-save-file-name-transforms
+      `((".*" "~/.emacs.d/.saves" t)))
+#+end_src
+** EXWM
+
+EXWM, the Emacs X Window Manager, is what makes all this possible. Right now, we are going to just load up the default config, and we will update it later.
+
+#+begin_src emacs-lisp
+  (use-package exwm
+    :ensure t
+    :config
+    (start-process-shell-command "setxkbmap" nil "setxkbmap -option ctrl:swapcaps")
+    ;; Set the default number of workspaces
+    (setq exwm-workspace-number 5)
+
+    ;; These keys should always pass through to Emacs
+    (setq exwm-input-prefix-keys
+      '(?\C-x
+	?\C-u
+	?\C-h
+	?\M-x))
+
+    ;; Ctrl+Q will enable the next key to be sent directly
+    (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+
+    ;; Set up global key bindings.  These always work, no matter the input state!
+    ;; Keep in mind that changing this list after EXWM initializes has no effect.
+    (setq exwm-input-global-keys
+	  `(
+	    ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+	    ([?\s-r] . exwm-reset)
+
+	    ;; Move between windows
+	    ([?\s-h] . windmove-left)
+	    ([?\s-l] . windmove-right)
+	    ([?\s-k] . windmove-up)
+	    ([?\s-j] . windmove-down)
+
+	    ;; Launch applications via shell command
+	    ([?\s-&] . (lambda (command)
+			 (interactive (list (read-shell-command "$ ")))
+			 (start-process-shell-command command nil command)))
+
+	    ;; Switch workspace
+	    ([?\s-w] . exwm-workspace-switch)
+	    ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+
+	    ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+	    ,@(mapcar (lambda (i)
+			`(,(kbd (format "s-%d" i)) .
+			  (lambda ()
+			    (interactive)
+			    (exwm-workspace-switch-create ,i))))
+		      (number-sequence 0 9))))
+
+    (exwm-enable))
+#+end_src
+
+** Theme
+
+We love Gruvbox, let's get it!
+
+#+begin_src emacs-lisp
+(use-package gruvbox-theme
+  :ensure t
+  :init
+    (load-theme 'gruvbox-dark-soft t))
+#+end_src
+
+** Evil
+
+Evil lets us use Vim within Emacs. Perfect!
+
+#+begin_src emacs-lisp
+(use-package evil
+  :ensure t
+  :init 
+    (evil-mode 1))
+#+end_src
+** Magit
+
+#+begin_src emacs-lisp
+(use-package magit
+  :ensure t
+  :init)
+#+end_src
+** Vertico
+
+[[https://github.com/minad/vertico][Vertico provides a performant and minimalistic vertical completion UI based on the default completion system]]
+
+#+begin_src emacs-lisp
+(use-package vertico
+  :ensure t  
+  :init
+    (vertico-mode))
+#+end_src
+** Orderless
+
+[[https://github.com/oantolin/orderless][Orderless]] provides an orderless completion style that divides the pattern into space-separated components, and matches candidates that match all of the components in any order.
+
+#+begin_src emacs-lisp
+  (use-package orderless
+    :ensure t
+    :custom
+    (completion-styles '(orderless basic))
+    (completion-category-overrides '((file (styles basic partial-completion)))))
+#+end_src
+
+** Save-Hist
+
+We want to save our history to persist over restarts, no? 
+
+#+begin_src emacs-lisp
+(use-package savehist
+  :ensure t 
+  :init
+   (savehist-mode))
+#+end_src
+
+** PDF-Tools
+   
+#+begin_src emacs-lisp
+(use-package pdf-tools
+  :ensure t)
+#+end_src
+
+** Novel Mode
+
+[[https://depp.brause.cc/nov.el/][Nov.el]] lets us read .epub files in Emacs.
+
+#+begin_src emacs-lisp
+(use-package nov
+  :ensure t
+  :config
+    (setq nov-unzip-program (executable-find "/usr/bin/unzip")))
+  
+#+end_src
+* To-Do List
+
+** DONE EXWM configuration
+
+Should be able to find the same pages I did last time. Remember `, not '. 
+
+** DONE Get Vertico going
+** DONE Get PDF-Tools going
+
+Redownload Symbolic Comp and Pr Alg in Lisp as well
+
+** DONE Get nov.el going 
+
+Might have to install unzip again
+** DONE Move backups and autosaves to a folder
+** DONE Backup init.org to github
+
