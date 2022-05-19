@@ -114,6 +114,20 @@ EXWM, the Emacs X Window Manager, is what makes all this possible. Right now, we
     (exwm-enable))
 #+end_src
 
+** Org
+
+We love Org. Let's get some useful things going in it.
+
+#+begin_src emacs-lisp :noweb yes
+  (use-package org
+    :ensure t
+    :config
+      (org-babel-do-load-languages
+        'org-babel-load-languages
+        '((lisp . t)
+          (emacs-lisp . t)))
+      (setq org-startup-indented t))
+#+end_src
 ** Theme
 
 We love Gruvbox, let's get it!
@@ -192,6 +206,16 @@ We want to save our history to persist over restarts, no?
   :config
     (setq nov-unzip-program (executable-find "/usr/bin/unzip")))
   
+#+end_src
+** SLIME
+
+[[https://github.com/slime/slime][SLIME]] is the 'Superior Lisp Interaction Mode for Emacs' and provides an interactive environment for developing with Common Lisp.
+
+#+begin_src emacs-lisp
+(use-package slime
+  :ensure t
+  :config
+    (setq inferior-lisp-program "sbcl"))
 #+end_src
 * To-Do List
 

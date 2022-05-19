@@ -78,6 +78,15 @@
 
   (exwm-enable))
 
+(use-package org
+  :ensure t
+  :config
+    (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((lisp . t)
+        (emacs-lisp . t)))
+    (setq org-startup-indented t))
+
 (use-package gruvbox-theme
   :ensure t
   :init
@@ -115,3 +124,8 @@
   :ensure t
   :config
     (setq nov-unzip-program (executable-find "/usr/bin/unzip")))
+
+(use-package slime
+  :ensure t
+  :config
+    (setq inferior-lisp-program "sbcl"))
