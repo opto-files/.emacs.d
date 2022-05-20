@@ -1,3 +1,5 @@
+;; test 1
+
 (require 'package)
 (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -81,6 +83,12 @@
 (use-package org
   :ensure t
   :config
+    (setq org-agenda-files 
+      '("~/org/"))
+    (setq org-log-done 'time)
+    (setq org-log-into-drawer t)
+    (setq org-agenda-start-with-log-mode t)
+    (setq org-use-property-inheritance t)
     (org-babel-do-load-languages
       'org-babel-load-languages
       '((lisp . t)
@@ -129,3 +137,5 @@
   :ensure t
   :config
     (setq inferior-lisp-program "sbcl"))
+
+;; testing second section
