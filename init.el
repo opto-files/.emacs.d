@@ -1,4 +1,4 @@
-;; test 1
+;; test 4
 
 (require 'package)
 (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
@@ -137,5 +137,3 @@
   :ensure t
   :config
     (setq inferior-lisp-program "sbcl"))
-
-;; testing second section
