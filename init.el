@@ -20,6 +20,7 @@
     (scroll-bar-mode -1)
     (tool-bar-mode -1)
     (global-visual-line-mode 1)
+    (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
     (setq backup-by-copying t      ; don't clobber symlinks
           backup-directory-alist '(("." . "~/.emacs.d/.saves/"))    ; don't litter my fs tree
           delete-old-versions t
@@ -86,6 +87,8 @@
     (setq org-log-done 'time)
     (setq org-log-into-drawer t)
     (setq org-agenda-start-with-log-mode t)
+    (setq org-hide-leading-stars t)
+    (setq org-hide-emphasis-markers t)
     (setq org-use-property-inheritance t)
     (org-babel-do-load-languages
       'org-babel-load-languages
