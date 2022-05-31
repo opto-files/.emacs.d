@@ -96,6 +96,10 @@
         (emacs-lisp . t)))
     (setq org-startup-indented t))
 
+(use-package org-drill
+  :ensure t
+  :init )
+
 (use-package gruvbox-theme
   :ensure t
   :init
