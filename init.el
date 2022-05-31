@@ -87,6 +87,8 @@
     (setq org-log-done 'time)
     (setq org-log-into-drawer t)
     (setq org-agenda-start-with-log-mode t)
+    (setq org-latex-create-formula-image-program 'dvipng)
+    (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.50))
     (setq org-hide-leading-stars t)
     (setq org-hide-emphasis-markers t)
     (setq org-use-property-inheritance t)
@@ -99,6 +101,9 @@
 (use-package org-drill
   :ensure t
   :init )
+
+(setq org-latex-create-formula-image-program 'dvipng)
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.50))
 
 (use-package gruvbox-theme
   :ensure t
