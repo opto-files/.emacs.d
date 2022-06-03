@@ -95,6 +95,7 @@
     (org-babel-do-load-languages
       'org-babel-load-languages
       '((lisp . t)
+        (lilypond . t)
         (emacs-lisp . t)))
     (setq org-startup-indented t))
 
