@@ -177,7 +177,4 @@
      (add-hook 'lisp-interaction-mode-hook 'eldoc-mode))
 
 (use-package metronome
-  :ensure t
-  :config
-  (global-set-key (kbd "C-c C-m") 'metronome)
-  (global-set-key (kbd "C-c C-t") 'metronome-set-tempo))
+  :ensure t)
