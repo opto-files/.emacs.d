@@ -19,6 +19,7 @@
     (menu-bar-mode -1)
     (scroll-bar-mode -1)
     (tool-bar-mode -1)
+    (set-frame-font "Fira Code" nil t)
     (global-visual-line-mode 1)
     (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
     (setq backup-by-copying t      ; don't clobber symlinks
