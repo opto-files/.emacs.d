@@ -100,12 +100,12 @@
         (emacs-lisp . t)))
     (setq org-startup-indented t))
 
+(setq org-latex-create-formula-image-program 'dvipng)
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.50))
+
 (use-package org-drill
   :ensure t
   :init )
-
-(setq org-latex-create-formula-image-program 'dvipng)
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.50))
 
 (use-package gruvbox-theme
   :ensure t
