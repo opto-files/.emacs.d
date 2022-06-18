@@ -97,6 +97,8 @@
       'org-babel-load-languages
       '((lisp . t)
         (lilypond . t)
+        (eshell . t)
+        (shell . t)
         (emacs-lisp . t)))
     (setq org-startup-indented t))
 
@@ -106,6 +108,10 @@
 (use-package org-drill
   :ensure t
   :init )
+
+(use-package ob-async
+  :ensure t
+  :init)
 
 (use-package gruvbox-theme
   :ensure t
