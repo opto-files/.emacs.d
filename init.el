@@ -11,25 +11,26 @@
         use-package-expand-minimally t))
 
 (use-package emacs
-  :init
-    (require 'use-package)
-    (setq ring-bell-function 'ignore)
-    (setq inhibit-startup-message t)
-    (setq initial-scratch-message nil))
-    (menu-bar-mode -1)
-    (scroll-bar-mode -1)
-    (tool-bar-mode -1)
-    (set-frame-font "Fira Code" nil t)
-    (global-visual-line-mode 1)
-    (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
-    (setq backup-by-copying t      ; don't clobber symlinks
-          backup-directory-alist '(("." . "~/.emacs.d/.saves/"))    ; don't litter my fs tree
-          delete-old-versions t
-          kept-new-versions 6
-          kept-old-versions 2
-          version-control t)       ; use versioned backups
-    (setq auto-save-file-name-transforms
-          `((".*" "~/.emacs.d/.saves" t)))
+    :init
+      (require 'use-package)
+      (setq ring-bell-function 'ignore)
+      (setq inhibit-startup-message t)
+      (setq initial-scratch-message nil)
+      (menu-bar-mode -1)
+      (scroll-bar-mode -1)
+      (tool-bar-mode -1)
+      (set-frame-font "Fira Code" nil t)
+      (global-visual-line-mode 1)
+      (display-time-mode 1)
+      (setq backup-by-copying t      ; don't clobber symlinks
+            backup-directory-alist '(("." . "~/.emacs.d/.saves/"))    ; don't litter my fs tree
+            delete-old-versions t
+            kept-new-versions 6
+            kept-old-versions 2
+            version-control t)       ; use versioned backups
+      (setq auto-save-file-name-transforms
+            `((".*" "~/.emacs.d/.saves" t)))
+      (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode)))
 
 (use-package exwm
   :ensure t
