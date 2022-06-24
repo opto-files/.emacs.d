@@ -82,26 +82,26 @@
   (exwm-enable))
 
 (use-package org
-  :ensure t
-  :config
-    (setq org-agenda-files 
-      '("~/org/"))
-    (setq org-log-done 'time)
-    (setq org-log-into-drawer t)
-    (setq org-agenda-start-with-log-mode t)
-    (setq org-latex-create-formula-image-program 'dvipng)
-    (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.50))
-    (setq org-hide-leading-stars t)
-    (setq org-hide-emphasis-markers t)
-    (setq org-use-property-inheritance t)
-    (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((lisp . t)
-        (lilypond . t)
-        (eshell . t)
-        (shell . t)
-        (emacs-lisp . t)))
-    (setq org-startup-indented t))
+    :ensure t
+    :config
+      (setq org-agenda-files 
+        '("~/org/"))
+      (setq org-log-done 'time)
+      (setq org-log-into-drawer t)
+      (setq org-agenda-start-with-log-mode t)
+      (setq org-latex-create-formula-image-program 'dvipng)
+      (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.50))
+      (setq org-hide-leading-stars t)
+      (setq org-hide-emphasis-markers t)
+      (setq org-use-property-inheritance t)
+      (org-babel-do-load-languages
+        'org-babel-load-languages
+        '((lisp . t)
+;; removing this until needed again (lilypond . t)
+          (eshell . t)
+          (shell . t)
+          (emacs-lisp . t)))
+      (setq org-startup-indented t))
 
 (setq org-latex-create-formula-image-program 'dvipng)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.50))
@@ -183,6 +183,3 @@
      'paredit-close-round)
      (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
      (add-hook 'lisp-interaction-mode-hook 'eldoc-mode))
-
-(use-package metronome
-  :ensure t)
