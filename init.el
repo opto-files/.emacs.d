@@ -114,14 +114,23 @@
   :ensure t
   :init)
 
+(use-package emms
+  :ensure t
+  :config
+  (require 'emms-setup)
+  (emms-all)
+  (emms-default-players))
+
 (use-package gruvbox-theme
   :ensure t
   :init
-    (load-theme 'gruvbox-dark-soft t))
+    (load-theme 'gruvbox-dark-soft t)
+)
 
 (use-package evil
   :ensure t
-  :init 
+  :init (setq evil-want-C-i-jump nil)
+  :config 
     (evil-mode 1))
 
 (use-package magit
